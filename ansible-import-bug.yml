@@ -1,0 +1,15 @@
+- hosts: localhost
+  connection: local
+  gather_facts: no
+
+  tasks:
+    - include_role:
+        name: printvar
+
+    # Comment this block out to make the above role execution print "the default message".
+    # Keep this in to make the above role execution print "delegated" (totally unexpected!).
+    - delegate_to: "localhost" # in a real example, that would of course be a different host
+      import_role:
+        name: printvar
+      vars:
+        printvar_msg: "delegated"
